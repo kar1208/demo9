@@ -24,6 +24,7 @@ public class Order extends BaseTimeEntity{
   private Long id;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "order" )
+  @Builder.Default
   private List <OrderItem> orderItems = new ArrayList<>();
 
   private LocalDateTime orderDate;
