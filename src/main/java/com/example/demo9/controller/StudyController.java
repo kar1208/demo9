@@ -1,15 +1,15 @@
 package com.example.demo9.controller;
 
 import com.example.demo9.service.StudyService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.Mapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import java.io.File;
 
 @Controller
 @RequestMapping("/study")
@@ -51,6 +51,38 @@ public class StudyController {
 
   }
 
+  @GetMapping("/file/fileUploadList")
+  public String fileUploadListGet(HttpServletRequest request, Model model) {
+    String realPath = request.getSession().getServletContext().getRealPath("/upload/");
+    String[] files = new File(realPath).list();
+    model.addAttribute("files", files);
+    model.addAttribute("fileCnt", files.length);
+    return "study/file/fileUploadList";
+  }
+
+  // 개별파일 삭제
+  @ResponseBody
+  @PostMapping("/file/fileDeleteCheck")
+  public String fileDeleteCheckPost(HttpServletRequest request, String file) {
+    String realPath = request.getSession().getServletContext().getRealPath("/upload/");
+    new File(realPath + file).delete();
+    return "1";
+  }
+
+  // 개별파일 삭제
+  @ResponseBody
+  @PostMapping("/file/fileSelectDelete")
+  public String fileSelectDeletePost(HttpServletRequest request, String delItems) {
+    delItems = delItems.substring(0, delItems.length()-1);
+
+    String[] fileNames = delItems.split("/");
+
+    String realPath = request.getSession().getServletContext().getRealPath("/upload/");
+    for(String fileName : fileNames) {
+      new File(realPath + fileName).delete();
+    }
+    return "1";
+  }
 
 
 }
