@@ -3,6 +3,10 @@ package com.example.demo9.controller;
 import com.example.demo9.service.StudyService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -82,6 +86,36 @@ public class StudyController {
       new File(realPath + fileName).delete();
     }
     return "1";
+  }
+
+
+  @GetMapping("/excel/excelTransfer")
+  public String excelTransferGet() {
+    return "study/excel/excelTransfer";
+  }
+
+  @ResponseBody
+  @PostMapping("/excel/excelTransfer")
+  public String excelTransferPost(MultipartFile fName) {
+    String oFileName = fName.getOriginalFilename();
+    return studyService.fileCsvToMysql(fName);
+  }
+
+  @PostMapping("/excel/excelUpload")
+  public String excelUploadPost(MultipartFile file, Model model) {
+    String oFileName = file.getOriginalFilename();
+    System.out.println("======================> oFileName : " + oFileName );
+    String res = studyService.fileExcelUpload(file, model);
+    return res;
+  }
+
+  @PostMapping("/excel/excelDownload")
+  public ResponseEntity<Resource> excelDownloadPost(Model model) {
+    Resource res = studyService.getExcelDownload(model);  // 스프링프레임웍코어
+    return ResponseEntity.ok()
+            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=userList.xlsx")
+            .contentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
+            .body(res);
   }
 
 
