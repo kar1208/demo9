@@ -38,4 +38,7 @@ click [여기](https://www.naver.com)
 |게시판|글쓰기/수정/삭제|추가예정|- [ ]|
 |자료실|파일올리기/다운로드|진행중|- [ ]|
 |관리자페이지|회원관리/매표관리|작업중|- [ ]|
-
+---
+배지(Shields.io 활용 - 'version-번호-색깔')
+![version](https://img.shields.io/badge/version-1.2.0-red)
+---
