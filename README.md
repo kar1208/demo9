@@ -41,4 +41,5 @@ click [여기](https://www.naver.com)
 ---
 배지(Shields.io 활용 - 'version-번호-색깔')
 ![version](https://img.shields.io/badge/version-1.2.0-red)
+![license](https://img.shields.io/badge/license-MIT-green)
 ---
