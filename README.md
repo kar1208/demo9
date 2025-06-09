@@ -44,5 +44,5 @@ click [여기](https://www.naver.com)
 ![license](https://img.shields.io/badge/license-MIT-green)
 ---
 방문자 수 카운트 
-![Visitor](https://komarev.com/ghpvc/?username=kar1208)
+![Visitor](https://komarev.com/ghpvc/?username=kar1208&color=red)
 ---
